@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeyad El-Sayed Ahmed</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&family=Barlow:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06060c;
+  --bg2:#0b0b14;
+  --card:#10101a;
+  --card2:#13131f;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#eeeef5;
+  --soft:#6a6a80;
+  --muted:#3a3a50;
+  --orange:#d4651a;
+  --orange2:#e87030;
+  --orange-dim:#7a3a0e;
+  --orange-glow:rgba(212,101,26,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden;font-weight:300}
+::selection{background:var(--orange);color:#000}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:var(--orange-dim)}
+
+/* NAV */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;border-bottom:1px solid transparent;
+  transition:all .4s;
+}
+#nav.stuck{background:rgba(6,6,12,.94);backdrop-filter:blur(20px);border-color:var(--border)}
+.nav-id{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text);
+}
+.nav-id span{color:var(--orange)}
+.nav-links{display:flex;gap:36px}
+.nav-links a{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--soft);text-decoration:none;transition:color .2s;font-weight:500;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--orange)}
+
+/* HERO */
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:80px 80px 80px;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(212,101,26,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(212,101,26,.04) 0%, transparent 50%);
+}
+.hero-lines{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-tag{
+  position:absolute;top:80px;left:80px;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--orange);font-weight:500;
+  opacity:0;animation:up .8s ease forwards .3s;
+}
+.hero-tag::before{content:'◆ ';font-size:8px}
+.hero-loc{
+  position:absolute;top:80px;right:80px;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--soft);
+  opacity:0;animation:fadeIn .8s ease forwards .5s;
+}
+.hero-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(80px,12vw,200px);
+  font-weight:900;line-height:.88;
+  letter-spacing:-2px;text-transform:uppercase;
+  color:var(--text);position:relative;z-index:1;
+  opacity:0;animation:up 1s ease forwards .4s;
+}
+.hero-name .line2{
+  -webkit-text-stroke:1px rgba(255,255,255,.3);
+  color:transparent;
+}
+.hero-name .line3{color:var(--orange)}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-top:48px;position:relative;z-index:1;
+  opacity:0;animation:up .8s ease forwards .8s;
+}
+.hero-roles{display:flex;flex-wrap:wrap;gap:8px}
+.role-chip{
+  border:1px solid var(--border2);padding:7px 16px;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--soft);font-weight:500;transition:all .2s;
+}
+.role-chip:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-glow)}
+.hero-intro{
+  max-width:360px;text-align:right;
+  font-size:14px;line-height:1.7;color:var(--soft);font-weight:300;
+}
+.hero-intro strong{color:var(--text);font-weight:500}
+
+/* NUMBERS BAND */
+.num-band{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  border-bottom:1px solid var(--border);
+}
+.num-col{
+  padding:48px 40px;border-right:1px solid var(--border);
+  transition:background .25s;
+}
+.num-col:last-child{border-right:none}
+.num-col:hover{background:var(--card)}
+.n-big{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:56px;font-weight:900;color:var(--orange);
+  line-height:1;display:block;letter-spacing:-1px;
+}
+.n-label{font-size:11px;color:var(--soft);margin-top:10px;line-height:1.5;font-weight:400}
+
+/* SECTIONS */
+.wrap{max-width:1280px;margin:0 auto;padding:96px 80px}
+.sec-eye{
+  display:flex;align-items:center;gap:20px;margin-bottom:64px;
+}
+.sec-n{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--orange);letter-spacing:1px;
+}
+.sec-t{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:48px;font-weight:800;text-transform:uppercase;
+  letter-spacing:-1px;color:var(--text);line-height:1;
+}
+.sec-rule{flex:1;height:1px;background:var(--border)}
+
+/* EXPERIENCE */
+.exp-item{
+  display:grid;grid-template-columns:260px 1fr;gap:64px;
+  width:100%;padding:56px 0;border-top:1px solid var(--border);
+}
+.exp-item:last-child{border-bottom:1px solid var(--border)}
+.exp-l{position:sticky;top:80px;align-self:start;min-width:260px;width:260px;}
+.exp-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  margin-bottom:12px;
+}
+.exp-badge.now{color:var(--orange)}
+.exp-badge.now::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);display:block;animation:pulse 2s infinite}
+.exp-badge.past{color:var(--soft)}
+.exp-badge.past::before{content:'';width:6px;height:6px;border-radius:50%;border:1px solid var(--soft);display:block}
+.exp-per{font-size:12px;color:var(--muted);margin-bottom:14px;font-family:'DM Mono',monospace;letter-spacing:1px}
+.exp-role{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:700;text-transform:uppercase;
+  color:var(--text);letter-spacing:0;margin-bottom:4px;
+}
+.exp-co{font-size:15px;color:var(--orange);font-style:italic;margin-bottom:12px}
+.exp-note{font-size:12px;color:var(--soft);line-height:1.6}
+.exp-r ul{list-style:none}
+.exp-r li{
+  padding:12px 0 12px 24px;position:relative;
+  font-size:14px;line-height:1.65;color:var(--soft);
+  border-bottom:1px solid var(--border);font-weight:300;
+}
+.exp-r li:last-child{border-bottom:none}
+.exp-r li::before{
+  content:'';position:absolute;left:0;top:22px;
+  width:10px;height:1px;background:var(--orange);
+}
+.exp-r li strong{color:var(--text);font-weight:500}
+
+/* RELEASES */
+.rel-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.rel-card{
+  background:var(--card);padding:28px;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.rel-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:var(--orange);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.rel-card:hover::after{transform:scaleX(1)}
+.rel-card:hover{background:var(--card2)}
+.rel-title{
+  font-size:13px;color:var(--soft);margin-bottom:8px;
+  font-weight:400;letter-spacing:.3px;
+}
+.rel-stat{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:30px;font-weight:400;color:var(--orange);
+  line-height:1;margin-bottom:10px;letter-spacing:0;
+}
+.rel-detail{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:12px}
+.rel-tag{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--orange-dim);border:1px solid var(--orange-dim);
+  padding:3px 10px;display:inline-block;font-weight:500;
+}
+
+/* DOMAIN */
+.dom-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.dom-card{background:var(--card);padding:36px;transition:background .2s}
+.dom-card:hover{background:var(--card2)}
+.dom-label{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--orange);font-weight:600;margin-bottom:14px;
+  font-family:'DM Mono',monospace;
+}
+.dom-text{font-size:13.5px;line-height:1.7;color:var(--soft);font-weight:300}
+
+/* GENRE */
+.genre-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.genre-card{background:var(--card);padding:32px;transition:background .2s}
+.genre-card:hover{background:var(--card2)}
+.genre-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:24px;font-weight:800;text-transform:uppercase;
+  color:var(--text);margin-bottom:6px;letter-spacing:-.5px;
+}
+.genre-note{font-size:12px;color:var(--muted)}
+
+/* SKILLS */
+.skills-cats{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.cat-btn{
+  padding:7px 18px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:600;border:1px solid var(--border2);background:transparent;
+  color:var(--soft);cursor:pointer;transition:all .2s;font-family:'Barlow',sans-serif;
+}
+.cat-btn:hover,.cat-btn.on{border-color:var(--orange);color:var(--orange);background:var(--orange-glow)}
+.skills-list{display:flex;flex-wrap:wrap;gap:8px}
+.skill{
+  border:1px solid var(--border);padding:8px 16px;
+  font-size:12px;color:var(--soft);transition:all .2s;font-weight:400;
+}
+.skill:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-glow)}
+.skill.off{display:none}
+
+/* CREDS */
+.cred-list{border-top:1px solid var(--border)}
+.cred-row{
+  display:flex;align-items:center;gap:28px;
+  padding:22px 0;border-bottom:1px solid var(--border);
+}
+.cred-dot{width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.cred-t{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;font-weight:700;text-transform:uppercase;
+  color:var(--text);min-width:300px;letter-spacing:-.3px;
+}
+.cred-d{font-size:13px;color:var(--soft)}
+
+/* PRESS */
+.press-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.press-card{background:var(--card);padding:32px;transition:background .2s}
+.press-card:hover{background:var(--card2)}
+.press-t{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:700;text-transform:uppercase;
+  color:var(--text);margin-bottom:8px;
+}
+.press-d{font-size:13px;color:var(--soft);line-height:1.5}
+
+/* QUOTE */
+.quote-sec{
+  padding:100px 80px;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);text-align:center;
+  position:relative;overflow:hidden;
+}
+.quote-sec::before{
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(212,101,26,.06), transparent 70%);
+  pointer-events:none;
+}
+.q-text{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(22px,3vw,42px);font-weight:700;
+  text-transform:uppercase;letter-spacing:-1px;
+  color:var(--soft);line-height:1.25;max-width:900px;margin:0 auto 28px;
+}
+.q-text em{color:var(--text);font-style:normal}
+.q-attr{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--orange-dim);font-family:'DM Mono',monospace;
+}
+
+/* FOOTER */
+footer{
+  padding:48px 80px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);
+}
+.f-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:-.5px;
+}
+.f-name span{color:var(--orange)}
+.f-links{display:flex;gap:32px}
+.f-links a{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--soft);text-decoration:none;transition:color .2s;
+}
+.f-links a:hover{color:var(--orange)}
+
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+/* DIVIDER */
+.div{border-bottom:1px solid var(--border)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero{padding:80px 32px 60px}
+  .hero-tag{left:32px}
+  .hero-loc{right:32px}
+  .num-band{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:72px 32px}
+  .exp-item{grid-template-columns:1fr;gap:28px}
+  .exp-l{position:static}
+  .rel-grid,.dom-grid,.genre-grid,.press-grid{grid-template-columns:1fr 1fr}
+  .hero-bottom{flex-direction:column;gap:24px;align-items:flex-start}
+  .hero-intro{text-align:left}
+  footer{flex-direction:column;gap:20px;padding:40px 32px}
+  #nav{padding:0 24px}
+  .nav-links{display:none}
+}
+@media(max-width:640px){
+  .rel-grid,.dom-grid,.genre-grid,.press-grid{grid-template-columns:1fr}
+  .num-band{grid-template-columns:1fr}
+}
+<style>
+.scatter-photo img:hover { filter:grayscale(0%) !important; }
+</style></style>
+
+<style>
+div[style*="grid-template-columns"] > div img:hover,
+div[style*="height:280px"] img:hover { transform: scale(1.04); filter: grayscale(0%) !important; }
+div[style*="grid-template-columns"] > div,
+div[style*="height:280px"] { overflow:hidden; cursor:default; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-id">Z<span>.</span>Ahmed</div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#releases">Releases</a>
+    <a href="#expertise">Expertise</a>
+    <a href="#credentials">Credentials</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  
+  <div class="hero-lines"></div>
+  <div class="hero-tag">A&R Manager &nbsp;·&nbsp; Record Producer &nbsp;·&nbsp; Music Strategist</div>
+  <div class="hero-loc">Cairo, Egypt &nbsp;·&nbsp; MENA</div>
+
+  <h1 class="hero-name">
+    Zeyad El-Sayed<br><span class="hero-name-gold">Ahmed</span>
+  </h1>
+
+  <div id="hero-canvas-right" style="position:absolute;right:0;top:0;bottom:0;width:48%;pointer-events:none;">
+    <canvas id="vinylCanvas" style="width:100%;height:100%;display:block;"></canvas>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-roles">
+      <span class="role-chip">A&R</span>
+      <span class="role-chip">Record Producer</span>
+      <span class="role-chip">Executive Producer</span>
+      <span class="role-chip">Music Strategist</span>
+      <span class="role-chip">PMP Certified</span>
+      <span class="role-chip">Dolby Atmos Pioneer</span>
+      <span class="role-chip">Cross-Border Specialist</span>
+      <span class="role-chip">Artist Manager</span>
+    </div>
+    <div class="hero-intro">
+      I come from the <strong>artistic side of music.</strong> I understand how records get made, what artists need, and what it takes to build something that connects. Five years across A&R, production, distribution, publishing, and marketing across MENA. <strong>Most of this happened before I turned 25.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<div class="num-band reveal" id="numbers">
+  <div class="num-col">
+    <span class="n-big">1.2B+</span>
+    <div class="n-label">YouTube views<br>managed</div>
+  </div>
+  <div class="num-col">
+    <span class="n-big" data-count="60" data-suf="+">60+</span>
+    <div class="n-label">Artists signed</div>
+  </div>
+  <div class="num-col">
+    <span class="n-big" data-count="35" data-suf="+">35+</span>
+    <div class="n-label">Publishing deals<br>mechanical, sync, perf.</div>
+  </div>
+  <div class="num-col">
+    <span class="n-big" data-count="40" data-suf="+">40+</span>
+    <div class="n-label">Influencer & brand<br>campaigns</div>
+  </div>
+  <div class="num-col">
+    <span class="n-big">1st</span>
+    <div class="n-label">Dolby Atmos rollout<br>for Arab artists — MENA</div>
+  </div>
+</div>
+
+
+<!-- EXPERIENCE -->
+<section class="div reveal" id="experience">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">01</span>
+      <h2 class="sec-t">Experience</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0;width:100%;">
+    <div class="exp-item">
+      <div class="exp-l">
+        <div class="exp-badge now">Now</div>
+        <div class="exp-per">2025 — Present</div>
+        <div class="exp-role">A&R &mdash; Artist Relations Manager</div>
+        <div class="exp-co">Believe Arabia</div>
+        <div class="exp-note">Global independent music distribution. Joined to build fluency in international label infrastructure and distribution SOPs.</div>
+      </div>
+      <div class="exp-r"><ul>
+        <li><strong>Develop and sign</strong> artists onto Believe's global platform — talent identification, catalogue evaluation, deal closing.</li>
+  
+      </ul></div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-l">
+        <div class="exp-badge now">Now</div>
+        <div class="exp-per">2022 — Present</div>
+        <div class="exp-role">Artist Manager · 360°</div>
+        <div class="exp-co">Shehab — Freelance</div>
+        <div class="exp-note">Full management across music, live, branding, digital. Running parallel to label work.</div>
+      </div>
+      <div class="exp-r"><ul>
+        <li><strong>Led all releases</strong> as manager and marketer — 3al 3mom (24M YouTube · 33M Spotify · most Shazamed Shehab song), Ras Shetan, Satamoni, KKKK, Hush.</li>
+        <li><strong>Coordinate the full creative team</strong> for every project — sound engineers, music producers, stylists, music video directors, post-production supervisors.</li>
+        <li><strong>Created, managed and led</strong> Shehab's concert at Cairo Jazz Club 610 — full production from scratch.</li>
+        <li><strong>Managed Alamein Festival 2025</strong> alongside Marwan Pablo and Lege-Cy — creative direction, PR, staging, concert visual artist coordination.</li>
+        <li><strong>ON Sport Ramadan campaign</strong> (2024): audio production, legal clearances, brand compliance, on-time delivery.</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-l">
+        <div class="exp-badge past">Past</div>
+        <div class="exp-per">2021 — 2025</div>
+        <div class="exp-role">A&R Manager</div>
+        <div class="exp-co">Takwene</div>
+        <div class="exp-note">4 years. Joined on the creative/audio side, promoted into A&R by the CEO. The role that built everything.</div>
+
+
+      </div>
+      <div class="exp-r"><ul>
+        <li><strong>Pioneered</strong> Takwene × Dolby MENA (2024–25) — the first Dolby Atmos rollout for Arab artists. Signed with Apple Music, Anghami, and Dolby Labs. New premium audio tier for the region.</li>
+        <li><strong>Directed</strong> Latifa's Qalbi Ertah album (2024): Dolby Atmos pipeline, influencer campaign end-to-end, international rollout with Dolby, Apple, and Anghami. Led PR for Latifa – Sorry — <em>#1 TikTok Egypt on release day.</em></li>
+        <li><strong>Led digital distribution</strong> across Wegz – ElBakht (309.6M views · #1 across 11 MENA countries · NMF Arabia), Lamis Kan – Mesaytara (398M views · 15 weeks global), Wegz – B3oda Ya Belady (26.7M views · Captains of Zaatari sync · FIFA documentary), and 15+ more.</li>
+        <li><strong>Brokered</strong> Wegz × ElGrandeToto – Msh Khalsa (2021): Egypt × Morocco — multi-jurisdiction publishing framework built from scratch. Now a template for international repertoire exchange.</li>
+        
+        <li><strong>Brokered</strong> Ramy Sabry × ETOLUBOV – Attraction (Arabic Remix): Egypt × Ukraine — identified the opportunity, assembled creative team, Executive Producer. Featured ET Bel Arabi.</li>
+        <li><strong>Signed 30+ publishing deals</strong> (mechanical, sync, performance) — copyright transactions from initial terms through executed agreements.</li>
+        <li><strong>Produced</strong> Sandy × Resha Costa & Samara – Sohab Zaman: built the pop × shaabi concept from scratch, supervised audio and video, ran full campaign.</li>
+        <li><strong>Directed marketing and PR</strong> for Lege-Cy – Placebo (2023): underground to commercial mainstream. Sass Club album launch.</li>
+        <li><strong>Coordinated CBC Music Hub appearances</strong> for DJ Totti and Nubi.</li>
+        <li><strong>Scaled</strong> signed roster to 60+ artists across Egyptian pop, North African rap, and Gulf markets.</li>
+        <li><strong>Represented Takwene</strong> at ElGouna Film Festival, Spotify Loud & Clear, and ET Bel Arabi.</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-l">
+        <div class="exp-badge past">Past</div>
+        <div class="exp-per">2025</div>
+        <div class="exp-role">Talent Coach</div>
+        <div class="exp-co">TikTok Live MENA</div>
+        <div class="exp-note">Music On Stage — TikTok MENA's flagship talent initiative.</div>
+      </div>
+      <div class="exp-r"><ul>
+        <li><strong>Trained 18 contestants</strong> in live performance, stage presence, and audience engagement — working directly with TikTok MENA's team.</li>
+        <li><strong>Shaped</strong> the coaching framework for how TikTok Live identifies and develops emerging artists in MENA.</li>
+      </ul></div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-l">
+        <div class="exp-badge past">Foundation</div>
+        <div class="exp-per">2019 — 2021</div>
+        <div class="exp-role">Songwriter & Audio Supervisor</div>
+        <div class="exp-co">Freelance</div>
+        <div class="exp-note">Where it all began. The reason everything after is different.</div>
+      </div>
+      <div class="exp-r"><ul>
+        <li>Songwriting, audio supervision, and music production across the Egyptian scene. This is why I understand the music before the spreadsheet.</li>
+      </ul></div>
+    </div>
+    </div><!-- /exp-list -->
+
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg);" class="reveal">
+  <div style="max-width:1280px;margin:0 auto;padding:64px 80px;">
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:40px;">
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--orange);">—</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;letter-spacing:-1px;">In The Field</span>
+      <div style="flex:1;height:1px;background:var(--border);"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:4px;">
+      <div style="grid-row:span 2;overflow:hidden;position:relative;background:#111;">
+        <img src="[[IMG]]" alt="ElGouna Film Festival" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(10%);transition:transform .5s,filter .4s;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px;">
+          <div style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;">Press</div>
+          <div style="font-size:14px;color:#fff;font-weight:500;">ElGouna Film Festival</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;position:relative;background:#111;">
+        <img src="[[IMG]]" alt="On set" style="width:100%;height:100%;object-fit:cover;filter:grayscale(10%);transition:transform .5s,filter .4s;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:3px;">On Set</div>
+          <div style="font-size:12px;color:#fff;">Ramy Sabry × ETOLUBOV</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;position:relative;background:#111;">
+        <img src="[[IMG]]" alt="ET Bel Arabi" style="width:100%;height:100%;object-fit:cover;filter:grayscale(10%);transition:transform .5s,filter .4s;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:3px;">Media</div>
+          <div style="font-size:12px;color:#fff;">ET Bel Arabi Interview</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;position:relative;background:#111;">
+        <img src="[[IMG]]" alt="Latifa Session" style="width:100%;height:100%;object-fit:cover;filter:grayscale(10%);transition:transform .5s,filter .4s;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:3px;">Studio</div>
+          <div style="font-size:12px;color:#fff;">Latifa — Qalbi Ertah</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;position:relative;background:#111;">
+        <img src="[[IMG]]" alt="Backstage" style="width:100%;height:100%;object-fit:cover;filter:grayscale(10%);transition:transform .5s,filter .4s;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%);"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:3px;">Backstage</div>
+          <div style="font-size:12px;color:#fff;">Artist Relations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alamein full width -->
+    <div style="margin-top:4px;overflow:hidden;position:relative;background:#111;height:280px;">
+      <img src="[[IMG]]" alt="Alamein Festival 2025" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:grayscale(10%) brightness(.75);transition:transform .5s;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.75) 0%,rgba(0,0,0,.2) 60%,transparent 100%);"></div>
+      <div style="position:absolute;top:50%;left:80px;transform:translateY(-50%);">
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Live — Alamein Festival 2025</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;text-transform:uppercase;color:#fff;letter-spacing:-1px;line-height:1.1;">Shehab × Marwan Pablo<br>× Lege-Cy</div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+#hero-canvas-right { pointer-events:none; }
+</style>
+
+
+<!-- RELEASES -->
+<section class="div reveal" id="releases">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">02</span>
+      <h2 class="sec-t">Catalogue &amp; Releases</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="rel-grid">
+
+      <div class="rel-card">
+        <div class="rel-title">Wegz &ndash; ElBakht</div>
+        <div class="rel-stat">309.6M views</div>
+        <div class="rel-detail">Led digital distribution and DSP rollout across Spotify, Anghami, Apple Music, and YouTube. Managed the pre-release strategy and editorial pitching that landed NMF Arabia (Spotify). 45M Anghami streams in 2022 alone &mdash; all-time single-year platform record. Resulted in #1 Arabic song across 11 MENA countries and Spotify&rsquo;s most-streamed Arab song in MENA 2022.</div>
+        <span class="rel-tag">Distribution &middot; Campaign &middot; DSP Strategy</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Lamis Kan &ndash; Mesaytara</div>
+        <div class="rel-stat">398M views</div>
+        <div class="rel-detail">Full A&amp;R supervision, audio production oversight, and end-to-end campaign management. Built and executed the influencer strategy from scratch. Coordinated DSP pitching that secured placement on Meen Yesma3 Lak (Spotify). The track charted globally for 15 consecutive weeks.</div>
+        <span class="rel-tag">A&amp;R &middot; Production &middot; Campaign</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Wegz &times; ElGrandeToto &ndash; Msh Khalsa</div>
+        <div class="rel-stat">Egypt &times; Morocco</div>
+        <div class="rel-detail">Brokered the cross-border co-production between Egypt and Morocco &mdash; the most-played cross-border Arab hip-hop collaboration of 2021. Managed multi-jurisdiction publishing contracts across both territories. Built the distributed production framework coordinating teams in Cairo and Casablanca. Handled all legal documentation, rights administration, and deal structuring.</div>
+        <span class="rel-tag">A&amp;R &middot; Cross-Border &middot; Publishing</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Latifa &ndash; Qalbi Ertah Album</div>
+        <div class="rel-stat">Dolby Atmos</div>
+        <div class="rel-detail">Led the full album rollout. Supervised the Dolby Atmos production pipeline and coordinated Apple Music Spatial Audio delivery specs. Built and executed the influencer campaign from scratch. Coordinated the international presentation with Dolby Labs, Apple Music, and Anghami. Managed all press, media, and regional coordination across MENA markets. 2024.</div>
+        <span class="rel-tag">A&amp;R &middot; Immersive Audio &middot; Marketing</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Latifa &ndash; Sorry</div>
+        <div class="rel-stat">#1 TikTok Egypt</div>
+        <div class="rel-detail">Led the full marketing, PR, and press campaign for the single. Designed and executed the influencer seeding strategy across multiple creator tiers simultaneously. The track trended #1 on TikTok Egypt on release day. Part of the Qalbi Ertah Dolby Atmos album rollout.</div>
+        <span class="rel-tag">Marketing &middot; PR &middot; Press Campaign</span>
+      </div>
+
+
+
+      <div class="rel-card">
+        <div class="rel-title">Ramy Sabry &times; ETOLUBOV &ndash; Attraction (Arabic Remix)</div>
+        <div class="rel-stat">Egypt &times; Ukraine</div>
+        <div class="rel-detail">Identified the cross-cultural collaboration opportunity and initiated the project. Managed both artist teams through the full production process. Served as Executive Producer &mdash; assembled and coordinated the full creative team including sound engineer, violinist, photographer, and VFX team. Supervised the visual shoot from concept to final edit. Featured in ET Bel Arabi.</div>
+        <span class="rel-tag">Executive Producer &middot; A&amp;R &middot; Creative Direction</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Wegz &ndash; B3oda Ya Belady</div>
+        <div class="rel-stat">26.7M views</div>
+        <div class="rel-detail">Managed the sync placement with Captains of Zaatari, a FIFA-backed documentary that reached international festival distribution. Led digital distribution across all DSPs and coordinated the international rollout tied to the film&rsquo;s global release cycle.</div>
+        <span class="rel-tag">Distribution &middot; Sync &middot; Film Coordination</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shehab &times; Horizon &times; Alfy &ndash; 3al 3mom</div>
+        <div class="rel-stat">24M views &middot; 33M Spotify</div>
+        <div class="rel-detail">Produced the track and led all marketing as Shehab&rsquo;s full-time manager. Coordinated the complete creative team: sound engineers, music producers, stylists, and concert visual artists. Built and managed the influencer campaign. Shehab&rsquo;s most Shazamed song to date. February 2024.</div>
+        <span class="rel-tag">Production &middot; Management &middot; Marketing</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shehab &times; DJ Totti &ndash; Satamoni</div>
+        <div class="rel-stat">Production</div>
+        <div class="rel-detail">Produced and co-coordinated the track with DJ Totti. Led all marketing as Shehab&rsquo;s manager. Managed the full digital release across DSPs, supervised content production, and coordinated the campaign rollout.</div>
+        <span class="rel-tag">Production &middot; Management &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shehab &times; DJ Totti &ndash; Ras Shetan</div>
+        <div class="rel-stat">Production</div>
+        <div class="rel-detail">Produced alongside DJ Totti. Led marketing strategy and execution as Shehab&rsquo;s manager. Coordinated sound engineers and creative team. Managed digital release and DSP coordination across all platforms.</div>
+        <span class="rel-tag">Production &middot; Management &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shehab &ndash; KKKK</div>
+        <div class="rel-stat">Lead Marketer</div>
+        <div class="rel-detail">Led marketing strategy and campaign execution as Shehab&rsquo;s manager. Coordinated the full creative team for production and visual content. Managed digital distribution, content scheduling, and influencer activation around the release.</div>
+        <span class="rel-tag">Management &middot; Marketing &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shehab &ndash; Hush</div>
+        <div class="rel-stat">Lead Marketer</div>
+        <div class="rel-detail">Led marketing and release strategy as Shehab&rsquo;s manager. Coordinated audio production, content creation, and digital rollout. Managed all DSP coordination and social media campaign execution.</div>
+        <span class="rel-tag">Management &middot; Marketing &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Sandy &times; Resha Costa &amp; Samara &ndash; Sohab Zaman</div>
+        <div class="rel-stat">Concept built</div>
+        <div class="rel-detail">Built the concept from scratch &mdash; bridging mainstream Egyptian pop with shaabi and mahraganat culture. A genre-defining collaboration. Supervised the full audio production process. Managed the music video production and post. Ran the complete release campaign across DSPs and social platforms.</div>
+        <span class="rel-tag">A&amp;R &middot; Concept &middot; Production &middot; Campaign</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Lege-Cy &ndash; Placebo Album</div>
+        <div class="rel-stat">Repositioned</div>
+        <div class="rel-detail">Served as marketing director for the full campaign. Designed the repositioning strategy that moved Lege-Cy from underground Egyptian rap to commercial mainstream. Curated and executed the Sass Club album launch as a press event. Built all media and press outreach. Directed the campaign that established Lege-Cy as a headline act.</div>
+        <span class="rel-tag">Marketing Director &middot; Campaign &middot; Artist Dev.</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Resha Costa &times; Samara Now &ndash; Tameneny</div>
+        <div class="rel-stat">25M+ views</div>
+        <div class="rel-detail">Led digital distribution management across all DSPs. Coordinated release scheduling, metadata delivery, and platform pitching. Managed post-release tracking and performance reporting.</div>
+        <span class="rel-tag">Distribution &middot; DSP Management</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Lege-Cy &ndash; Fel Galeed</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">A&amp;R &mdash; scouted, signed, and developed. Supervised the recording process. Managed full digital release across all DSPs. Handled distribution setup, metadata, and post-release DSP coordination.</div>
+        <span class="rel-tag">A&amp;R &middot; Signing &middot; Digital Release</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">DJ Totti &ndash; Moled El Gezeera (Remix)</div>
+        <div class="rel-stat">Production</div>
+        <div class="rel-detail">Coordinated the full production process. Managed digital distribution across DSPs. Also coordinated DJ Totti&rsquo;s CBC Music Hub media appearance &mdash; handling all logistics, scheduling, and artist communications for the platform feature.</div>
+        <span class="rel-tag">Production &middot; Distribution &middot; Media</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Hany Shaker &ndash; W Enta Ghayeb</div>
+        <div class="rel-stat">Account Mgmt</div>
+        <div class="rel-detail">Full account management for one of Egypt&rsquo;s most iconic artists. Coordinated digital distribution across Spotify, Apple Music, Anghami, YouTube Music, and Deezer. Managed DSP metadata, release scheduling, and platform communication.</div>
+        <span class="rel-tag">Distribution &middot; Account Management</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Lel Egar &ndash; Official Film Trailer</div>
+        <div class="rel-stat">Netflix Egypt</div>
+        <div class="rel-detail">Managed digital release of the official trailer for the film starring Khaled El Sawy and Mohamed Salam. Coordinated YouTube and DSP distribution. The film went on to win at Luxor Film Festival and is now streaming on Netflix Egypt.</div>
+        <span class="rel-tag">Film &middot; Distribution &middot; Digital Release</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">L5VAV &ndash; Rockstar</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">Scouted and signed. Supervised creative development. Managed full digital release setup across all DSPs &mdash; distribution, metadata QA, release scheduling, and post-release platform coordination.</div>
+        <span class="rel-tag">A&amp;R &middot; Signing &middot; Digital Release</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">3AB3AZ &ndash; Ana Magnoon</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">Scouted and signed. Managed full digital release management across all streaming platforms. Handled distribution coordination, metadata delivery, and DSP pitching.</div>
+        <span class="rel-tag">A&amp;R &middot; Signing &middot; Digital Release</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Kordy &times; Meno Zein &times; Mahib &ndash; Masterpiece</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">A&amp;R on a multi-artist collaboration. Coordinated the three artists through the recording and production process. Managed full digital release across all DSPs with distribution setup and platform coordination.</div>
+        <span class="rel-tag">A&amp;R &middot; Multi-Artist &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Cris Elmasry</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">Scouted, signed, and developed. Supervised creative development and release readiness. Managed full digital distribution setup across streaming platforms and post-release DSP account coordination.</div>
+        <span class="rel-tag">A&amp;R &middot; Signing &middot; Artist Development</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Shahyn &ndash; Siri</div>
+        <div class="rel-stat">Distribution</div>
+        <div class="rel-detail">Managed digital release across all major DSPs. Handled full distribution setup, metadata QA, release scheduling, and platform coordination post-release.</div>
+        <span class="rel-tag">Digital Release &middot; Distribution</span>
+      </div>
+
+
+      <div class="rel-card">
+        <div class="rel-title">Lamis Kan &ndash; Tushkar</div>
+        <div class="rel-stat">Project Mgmt</div>
+        <div class="rel-detail">Managed virtual collaboration with the artist to execute the project. Closely oversaw audio production with the music producer. Assembled and coordinated the full music video team. Handled and organized all payment arrangements.</div>
+        <span class="rel-tag">A&amp;R &middot; Production &middot; Video</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Somaya El Khashab &ndash; Moga</div>
+        <div class="rel-stat">Distribution</div>
+        <div class="rel-detail">Managed digital release coordination and DSP distribution for the track. Handled platform delivery, metadata, and post-release account management.</div>
+        <span class="rel-tag">Digital Release &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">DizzyTooSkinny &times; Wezza &times; Nubi &ndash; Edeko Fouq</div>
+        <div class="rel-stat">A&amp;R</div>
+        <div class="rel-detail">A&R on a three-artist collaboration. Managed coordination between all parties through recording and production. Led full digital release management across DSPs.</div>
+        <span class="rel-tag">A&amp;R &middot; Multi-Artist &middot; Distribution</span>
+      </div>
+
+      <div class="rel-card">
+        <div class="rel-title">Ahmed Basyoni &ndash; Eh El Halawa Di</div>
+        <div class="rel-stat">Distribution</div>
+        <div class="rel-detail">Managed digital release across all major streaming platforms. Coordinated DSP delivery, metadata QA, and release scheduling.</div>
+        <span class="rel-tag">Digital Release &middot; Distribution</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DOMAIN EXPERTISE -->
+<section class="div reveal" id="expertise">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">03</span>
+      <h2 class="sec-t">Domain Expertise</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="dom-grid">
+      <div class="dom-card">
+        <div class="dom-label">A&R</div>
+        <div class="dom-text">Signs artists using Chartmetric, Spotify velocity data, and DSP analytics alongside genuine creative instinct. Signed 60+ artists. Identifies momentum before it goes mainstream — not after.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Publishing & Copyright</div>
+        <div class="dom-text">Signed and managed 30+ publishing deals covering mechanical, sync, and performance rights. Handles copyright transactions with artists and record companies — from initial terms through executed agreements.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Immersive Audio</div>
+        <div class="dom-text">Signed and delivered the first Dolby Atmos rollout for Arab artists via Takwene × Dolby MENA. Full pipeline: spatial audio production, Apple Music Spatial, Anghami delivery specs, premium format monetisation.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Cross-Border Strategy</div>
+        <div class="dom-text">Built co-production frameworks for Egypt × Morocco (Msh Khalsa) and Egypt × Ukraine (Ramy Sabry × ETOLUBOV). Deep Moroccan market knowledge: ElGrandeToto, Madd, 7liwa, Lbenj. Multi-jurisdiction publishing fluency.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Project Management</div>
+        <div class="dom-text">PMP-certified. Scopes, budget tracking, risk management, stakeholder alignment on every release. Consistent on-time delivery in an industry that runs on chaos.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Global Distribution</div>
+        <div class="dom-text">Expert-level: Spotify, Apple Music, Anghami, YouTube Music, Deezer. Editorial pitching, metadata QA, pre-save campaigns, performance tracking. Multi-territory release strategy.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Marketing & PR</div>
+        <div class="dom-text">Full campaigns strategy to execution — release plans, influencer ops, press rollouts, brand coordination. 40+ campaigns delivered personally. Latifa – Sorry trended #1 TikTok Egypt on release day.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Artist Development</div>
+        <div class="dom-text">360° management: live touring, branding, audio supervision, PR, legal, digital. Full creative team assembly — songwriters, composers, producers, engineers, directors, stylists, post-production. Cairo Jazz Club 610 to Alamein Festival.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Genre Fluency</div>
+        <div class="dom-text">Egyptian pop, mahraganat/shaabi, North African rap, Khaleeji, Gulf trap, Arabic R&B. What connects in Egypt doesn't always land in Saudi or Morocco — every project reflects that understanding.</div>
+      </div>
+      <div class="dom-card">
+        <div class="dom-label">Record Production</div>
+        <div class="dom-text">Started as a songwriter and audio supervisor. Understands the music before the spreadsheet. Brought in as Executive Producer and creative director on major releases. Rare for a business-side A&R.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GENRE -->
+<section class="div reveal">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">04</span>
+      <h2 class="sec-t">Genre Fluency</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="genre-grid">
+      <div class="genre-card">
+        <div class="genre-name">Egyptian Pop</div>
+        <div class="genre-note">Deep catalogue · Multiple #1 releases</div>
+      </div>
+      <div class="genre-card">
+        <div class="genre-name">Mahraganat / Shaabi</div>
+        <div class="genre-note">Street culture · Mass market appeal</div>
+      </div>
+      <div class="genre-card">
+        <div class="genre-name">North African Rap</div>
+        <div class="genre-note">Morocco × Egypt pipeline · ElGrandeToto</div>
+      </div>
+      <div class="genre-card">
+        <div class="genre-name">Khaleeji</div>
+        <div class="genre-note">Gulf market nuance · DSP positioning</div>
+      </div>
+      <div class="genre-card">
+        <div class="genre-name">Gulf Trap</div>
+        <div class="genre-note">Emerging format · Saudi & UAE markets</div>
+      </div>
+      <div class="genre-card">
+        <div class="genre-name">Arabic R&B</div>
+        <div class="genre-note">Cross-cultural collaborations · Hybrid formats</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="div reveal">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">05</span>
+      <h2 class="sec-t">Tools & Tech</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="skills-cats">
+      <button class="cat-btn on" data-c="all">All</button>
+      <button class="cat-btn" data-c="dsp">DSP & Analytics</button>
+      <button class="cat-btn" data-c="creative">Creative</button>
+      <button class="cat-btn" data-c="ops">Ops & Collab</button>
+    </div>
+    <div class="skills-list">
+      <span class="skill" data-c="dsp">Chartmetric</span>
+      <span class="skill" data-c="dsp">Spotify for Artists</span>
+      <span class="skill" data-c="dsp">Apple Music for Artists</span>
+      <span class="skill" data-c="dsp">Soundcharts</span>
+      <span class="skill" data-c="dsp">Anghami Studio</span>
+      <span class="skill" data-c="dsp">DSP CMS Platforms</span>
+      <span class="skill" data-c="dsp">Global Royalty Reporting</span>
+      <span class="skill" data-c="dsp">AI Scouting Tools</span>
+      <span class="skill" data-c="dsp">TikTok Analytics</span>
+      <span class="skill" data-c="dsp">YouTube Studio</span>
+      <span class="skill" data-c="creative">Adobe Premiere</span>
+      <span class="skill" data-c="creative">After Effects</span>
+      <span class="skill" data-c="creative">Photoshop</span>
+      <span class="skill" data-c="creative">Dolby Atmos Pipeline</span>
+      <span class="skill" data-c="creative">Suno</span>
+      <span class="skill" data-c="creative">AI Production Tools</span>
+      <span class="skill" data-c="ops">Slack</span>
+      <span class="skill" data-c="ops">Lark</span>
+      <span class="skill" data-c="ops">Microsoft Suite</span>
+      <span class="skill" data-c="ops">Power BI</span>
+      <span class="skill" data-c="ops">SEO & Analytics</span>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="div reveal" id="credentials">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">06</span>
+      <h2 class="sec-t">Credentials</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="cred-list">
+      <div class="cred-row">
+        <div class="cred-dot"></div>
+        <div class="cred-t">PMP Certified</div>
+        <div class="cred-d">Project Management Institute</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-dot"></div>
+        <div class="cred-t">Business Developer</div>
+        <div class="cred-d">Believe Business Training · Nov 2025 · ID: 1679482477117782</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-dot"></div>
+        <div class="cred-t">Music Business Foundations</div>
+        <div class="cred-d">Berklee Online</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-dot"></div>
+        <div class="cred-t">Languages</div>
+        <div class="cred-d">Arabic (native) · English (fluent)</div>
+      </div>
+      <div class="cred-row">
+        <div class="cred-dot"></div>
+        <div class="cred-t">Open To</div>
+        <div class="cred-d">Cairo · Dubai · Riyadh · Remote + Travel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="div reveal">
+  <div class="wrap">
+    <div class="sec-eye">
+      <span class="sec-n">07</span>
+      <h2 class="sec-t">Press & Media</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="press-grid">
+      <div class="press-card">
+        <div class="press-t">UAE Stories</div>
+        <div class="press-d">March 2026 · Featured on combining artistry with business strategy in the MENA music industry</div>
+      </div>
+      <div class="press-card">
+        <div class="press-t">Middle East Underground</div>
+        <div class="press-d">Spotify Loud & Clear event · Interviewed on the future of Egyptian music</div>
+      </div>
+      <div class="press-card">
+        <div class="press-t">ET Bel Arabi</div>
+        <div class="press-d">Featured for Ramy Sabry × ETOLUBOV – Attraction (Arabic Remix)</div>
+      </div>
+      <div class="press-card">
+        <div class="press-t">ElGouna Film Festival</div>
+        <div class="press-d">Industry attendee · Music and film convergence</div>
+      </div>
+      <div class="press-card">
+        <div class="press-t">Spotify for Artists</div>
+        <div class="press-d">Regular industry presence and contribution</div>
+      </div>
+      <div class="press-card">
+        <div class="press-t">LinkedIn · @zeyadsayedd</div>
+        <div class="press-d">Active contributor on immersive audio, talent development, and the MENA music industry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- QUOTE -->
+<div class="quote-sec reveal">
+  <p class="q-text">"I believe <em>knowledge always wins</em> — the best thing you can do for an artist is protect their journey while making <em>smart decisions</em> around it."</p>
+  <div class="q-attr">Zeyad El-Sayed Ahmed · Cairo, Egypt · zeyadsayedinq@gmail.com · +201111183881</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-name">Zeyad El-Sayed <span>Ahmed</span></div>
+  <div class="f-links">
+    <a href="mailto:zeyadsayedinq@gmail.com">Email</a>
+    <a href="tel:+201111183881">+201111183881</a>
+    <a href="https://linkedin.com/in/zeyadsayedd" target="_blank">LinkedIn</a>
+    <a href="#">@zeyadsayedd</a>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>50));
+
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')})},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const countIO=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(!x.isIntersecting)return;
+    x.target.querySelectorAll('[data-count]').forEach(el=>{
+      const target=+el.dataset.count,suf=el.dataset.suf||'';
+      let t0=null;
+      const step=ts=>{
+        if(!t0)t0=ts;
+        const p=Math.min((ts-t0)/1400,1);
+        const ease=1-Math.pow(1-p,3);
+        el.textContent=Math.round(ease*target)+suf;
+        if(p<1)requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+    countIO.unobserve(x.target);
+  });
+},{threshold:.3});
+document.querySelectorAll('.num-band').forEach(el=>countIO.observe(el));
+
+document.querySelectorAll('.cat-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const c=btn.dataset.c;
+    document.querySelectorAll('.skill').forEach(s=>s.classList.toggle('off',c!=='all'&&s.dataset.c!==c));
+  });
+});
+
+const links=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  document.querySelectorAll('[id]').forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+</script>
+
+
+
+<script>
+(function() {
+  const canvas = document.getElementById('vinylCanvas');
+  if (!canvas) return;
+  let frame = 0, W, H, cx, cy;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+    H = canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+    canvas.style.width = canvas.offsetWidth + 'px';
+    canvas.style.height = canvas.offsetHeight + 'px';
+    cx = W * 0.5; cy = H * 0.45;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const ctx = canvas.getContext('2d');
+  const BARS = 90;
+  const notes = Array.from({length: BARS}, () => ({
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.6 + Math.random() * 1.2,
+    amp: 0.35 + Math.random() * 0.65,
+  }));
+
+  // Mouse parallax
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth - 0.5) * 30;
+    my = (e.clientY / window.innerHeight - 0.5) * 20;
+  });
+
+  function draw() {
+    frame++;
+    const t = frame * 0.008;
+
+    W = canvas.width; H = canvas.height;
+    cx = W * 0.5 + mx * window.devicePixelRatio;
+    cy = H * 0.44 + my * window.devicePixelRatio;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const dpr = window.devicePixelRatio;
+    const radius = Math.min(W, H) * 0.28;
+
+    // Outer ambient glow
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.8);
+    grd.addColorStop(0, 'rgba(212,101,26,0.06)');
+    grd.addColorStop(0.5, 'rgba(212,101,26,0.02)');
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // Slow rotation
+    ctx.rotate(t * 0.12);
+
+    // Record shadow
+    ctx.beginPath();
+    ctx.arc(radius * 0.04, radius * 0.04, radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fill();
+
+    // Record body
+    const rec = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+    rec.addColorStop(0, '#1a1a1a');
+    rec.addColorStop(0.4, '#0f0f0f');
+    rec.addColorStop(1, '#080808');
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, Math.PI * 2);
+    ctx.fillStyle = rec;
+    ctx.fill();
+
+    // Grooves with subtle shimmer
+    for (let r = radius * 0.28; r < radius * 0.94; r += radius * 0.032) {
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      const shimmer = 0.02 + (Math.sin(r * 0.1 + t) * 0.01);
+      ctx.strokeStyle = `rgba(255,255,255,${shimmer})`;
+      ctx.lineWidth = 0.7 * dpr;
+      ctx.stroke();
+    }
+
+    // Light reflection arc
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.75, -0.8, 0.2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = radius * 0.08;
+    ctx.stroke();
+
+    // Center label
+    const lbl = ctx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.22);
+    lbl.addColorStop(0, '#2a1a0a');
+    lbl.addColorStop(1, '#1a0f05');
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = lbl;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(212,101,26,0.5)';
+    ctx.lineWidth = 1.5 * dpr;
+    ctx.stroke();
+
+    ctx.restore();
+
+    // Audio bars — NO rotation, fixed around the record
+    ctx.save();
+    ctx.translate(cx, cy);
+    const outerR = radius * 1.06;
+    const maxH = radius * 0.42;
+
+    for (let i = 0; i < BARS; i++) {
+      const angle = (i / BARS) * Math.PI * 2 - Math.PI / 2;
+      const n = notes[i];
+      const wave = (Math.sin(t * n.speed + n.phase) * 0.5 + 0.5) * n.amp;
+      const bh = 3 + wave * maxH;
+      const x1 = Math.cos(angle) * outerR;
+      const y1 = Math.sin(angle) * outerR;
+      const x2 = Math.cos(angle) * (outerR + bh);
+      const y2 = Math.sin(angle) * (outerR + bh);
+
+      const alpha = 0.1 + wave * 0.75;
+      const r = Math.floor(212); const g = Math.floor(101 + wave * 30); const b2 = Math.floor(26);
+      ctx.strokeStyle = `rgba(${r},${g},${b2},${alpha})`;
+      ctx.lineWidth = (Math.PI * 2 * outerR / BARS) * 0.52;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+
+    // Center text removed per request
+
+    // Center dot
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.025, 0, Math.PI * 2);
+    ctx.fillStyle = '#06060c';
+    ctx.fill();
+
+    // Floating notes
+    const noteSyms = ['♪','♫','♩','♬','♭'];
+    for (let i = 0; i < 5; i++) {
+      const na = t * 0.18 + (i / 5) * Math.PI * 2;
+      const nr = radius * (1.55 + Math.sin(t * 0.4 + i * 1.3) * 0.18);
+      const nx = Math.cos(na) * nr;
+      const ny = Math.sin(na) * nr;
+      const a = 0.08 + Math.abs(Math.sin(t * 0.5 + i)) * 0.22;
+      ctx.fillStyle = `rgba(212,101,26,${a})`;
+      ctx.font = `${radius * 0.13}px serif`;
+      ctx.fillText(noteSyms[i], nx, ny);
+    }
+
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+</body>
+</html>
